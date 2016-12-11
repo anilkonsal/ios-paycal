@@ -56,7 +56,6 @@
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light" returnKeyType="go"/>
                                         <connections>
                                             <action selector="salaryAmountChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="jot-Ie-zy9"/>
-                                            <action selector="salaryAmountEntered:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="9az-bH-BHm"/>
                                         </connections>
                                     </textField>
                                     <view alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcS-nh-lTE">
@@ -67,68 +66,113 @@
                                             <constraint firstAttribute="height" constant="1" id="vje-sT-2fg"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoM-ZY-1Zs">
-                                        <rect key="frame" x="40" y="25" width="43" height="26"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
-                                        <state key="normal" title="YEARLY">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-zh-t8q">
-                                        <rect key="frame" x="35" y="48" width="55" height="2"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="6rJ-uL-lLj">
+                                        <rect key="frame" x="10" y="25" width="355" height="26"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoM-ZY-1Zs">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                                <state key="normal" title="YEARLY">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="topTabYearlyBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u82-fF-j7P"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQV-id-Yrl">
+                                                <rect key="frame" x="60" y="0.0" width="77" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                                <state key="normal" title="MONTHLY">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="topTabMonthlyBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFZ-hp-WuP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUl-DG-e81">
+                                                <rect key="frame" x="137" y="0.0" width="107.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                                <state key="normal" title="FORTNIGHTLY">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="topTabFortnighlyBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gs4-3X-OxV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iml-Vr-2zY">
+                                                <rect key="frame" x="244.5" y="0.0" width="64.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                                <state key="normal" title="WEEKLY">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="topTabWeeklyBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IlL-B1-lrw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQe-kG-gXR">
+                                                <rect key="frame" x="309" y="0.0" width="46" height="26"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                                <state key="normal" title="DAILY">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="topTabDailyBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DnF-rY-g9p"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="5UP-u5-KGd"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7N-zh-t8q">
+                                        <rect key="frame" x="10" y="48" width="55" height="1"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="Fjh-Bx-bBL"/>
                                             <constraint firstAttribute="height" constant="1" id="U1Y-UI-Kj4"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="2" id="eHV-Ny-jmO"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQV-id-Yrl">
-                                        <rect key="frame" x="128" y="25" width="32" height="26"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
-                                        <state key="normal" title="DAILY">
-                                            <color key="titleColor" red="0.17455178537322358" green="0.078658121050714305" blue="0.48078600888324874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhX-6K-arO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhX-6K-arO">
                                         <rect key="frame" x="314" y="100" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Crf-jD-NhO"/>
+                                            <constraint firstAttribute="width" constant="30" id="nEp-A0-j39"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="linea-basic-10" family="linea-basic-10" pointSize="25"/>
                                         <state key="normal" title="P">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="8GS-tJ-Elq" kind="show" id="z4u-DJ-UUy"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3529411764705882" green="0.2627450980392157" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="OQV-id-Yrl" firstAttribute="leading" secondItem="VoM-ZY-1Zs" secondAttribute="trailing" constant="45" id="2D4-ue-ufz"/>
-                                    <constraint firstItem="z7N-zh-t8q" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="35" id="3ph-NF-J2c"/>
-                                    <constraint firstItem="z7N-zh-t8q" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="48" id="6Lk-O1-UVD"/>
+                                    <constraint firstItem="z7N-zh-t8q" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="10" id="3ph-NF-J2c"/>
                                     <constraint firstItem="ifd-Z0-08y" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="40" id="GSo-L6-79q"/>
-                                    <constraint firstItem="VoM-ZY-1Zs" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="25" id="L7M-L0-I8u"/>
+                                    <constraint firstItem="6rJ-uL-lLj" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="25" id="So1-35-Te6"/>
                                     <constraint firstItem="d08-Cd-2SF" firstAttribute="top" secondItem="wqN-fL-J98" secondAttribute="bottom" constant="2" id="Tjf-iz-kWV"/>
                                     <constraint firstItem="ifd-Z0-08y" firstAttribute="top" secondItem="wqN-fL-J98" secondAttribute="bottom" constant="7" id="Tsl-PU-BoR"/>
                                     <constraint firstAttribute="height" constant="169" id="Wz6-Ya-woV"/>
                                     <constraint firstItem="dcS-nh-lTE" firstAttribute="top" secondItem="d08-Cd-2SF" secondAttribute="bottom" constant="3" id="Zb6-v5-7sd"/>
-                                    <constraint firstItem="OQV-id-Yrl" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="25" id="fQC-z9-R0g"/>
                                     <constraint firstItem="wqN-fL-J98" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="40" id="fYD-nl-FyW"/>
                                     <constraint firstItem="dcS-nh-lTE" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="40" id="gp8-LB-tAe"/>
                                     <constraint firstItem="wqN-fL-J98" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="76" id="hbl-uG-g6A"/>
-                                    <constraint firstItem="VoM-ZY-1Zs" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="40" id="xPv-6D-4f5"/>
+                                    <constraint firstItem="XhX-6K-arO" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="100" id="jxF-gI-X52"/>
+                                    <constraint firstItem="6rJ-uL-lLj" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" id="nfH-yQ-mQd"/>
+                                    <constraint firstItem="6rJ-uL-lLj" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="10" id="ovV-6D-Y9X"/>
+                                    <constraint firstItem="z7N-zh-t8q" firstAttribute="top" secondItem="xw8-6t-gW1" secondAttribute="top" constant="48" id="sG2-Ld-kND"/>
+                                    <constraint firstAttribute="trailing" secondItem="XhX-6K-arO" secondAttribute="trailing" constant="31" id="t8L-Ce-K2X"/>
                                     <constraint firstItem="d08-Cd-2SF" firstAttribute="leading" secondItem="xw8-6t-gW1" secondAttribute="leading" constant="56" id="yO5-Qa-5eY"/>
+                                    <constraint firstAttribute="trailing" secondItem="6rJ-uL-lLj" secondAttribute="trailing" constant="10" id="yho-Ns-MXe"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bby-xv-GdN">
                                 <rect key="frame" x="0.0" y="169" width="375" height="40"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lGs-Y8-x3P">
-                                        <rect key="frame" x="10" y="8" width="355" height="24"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="lGs-Y8-x3P">
+                                        <rect key="frame" x="5" y="8" width="365" height="24"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hF8-Ci-JyA">
-                                                <rect key="frame" x="0.0" y="0.0" width="71" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                 <state key="normal" title="YEARLY">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -138,7 +182,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ur1-Uo-aNI">
-                                                <rect key="frame" x="71" y="0.0" width="71" height="24"/>
+                                                <rect key="frame" x="60.5" y="0.0" width="78.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                 <state key="normal" title="MONTHLY">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -148,7 +192,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.34999999403953552" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPe-8d-hea">
-                                                <rect key="frame" x="142" y="0.0" width="71" height="24"/>
+                                                <rect key="frame" x="139" y="0.0" width="111.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                 <state key="normal" title="FORTNIGHTLY">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -158,7 +202,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.34999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ge-96-lnw">
-                                                <rect key="frame" x="213" y="0.0" width="71" height="24"/>
+                                                <rect key="frame" x="250.5" y="0.0" width="65.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                 <state key="normal" title="WEEKLY">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -168,7 +212,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.34999999403953552" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDQ-YF-DEg">
-                                                <rect key="frame" x="284" y="0.0" width="71" height="24"/>
+                                                <rect key="frame" x="316" y="0.0" width="49" height="24"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                 <state key="normal" title="DAILY">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -183,9 +227,9 @@
                                 <color key="backgroundColor" red="0.183573921319797" green="0.183573921319797" blue="0.183573921319797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="377-Fa-UQ9"/>
-                                    <constraint firstAttribute="trailing" secondItem="lGs-Y8-x3P" secondAttribute="trailing" constant="10" id="5JH-Re-3uK"/>
+                                    <constraint firstAttribute="trailing" secondItem="lGs-Y8-x3P" secondAttribute="trailing" constant="5" id="5JH-Re-3uK"/>
                                     <constraint firstItem="lGs-Y8-x3P" firstAttribute="centerY" secondItem="bby-xv-GdN" secondAttribute="centerY" id="WuE-pq-5eD"/>
-                                    <constraint firstItem="lGs-Y8-x3P" firstAttribute="leading" secondItem="bby-xv-GdN" secondAttribute="leading" constant="10" id="aWh-i1-2nU"/>
+                                    <constraint firstItem="lGs-Y8-x3P" firstAttribute="leading" secondItem="bby-xv-GdN" secondAttribute="leading" constant="5" id="aWh-i1-2nU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJi-6y-jWG">
@@ -228,6 +272,23 @@
                                         <rect key="frame" x="34" y="-4" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9g-JW-uRy">
+                                        <rect key="frame" x="280" y="59" width="11" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taxable Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg7-XX-BUI">
+                                        <rect key="frame" x="281.5" y="29" width="84.5" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="6VU-se-mnX"/>
+                                            <constraint firstAttribute="height" constant="17" id="8k9-iM-ePR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <color key="textColor" red="0.37997714999999999" green="0.088550287460000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95387265788295017" green="0.96331694162436543" blue="0.96331694162436543" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -235,7 +296,9 @@
                                     <constraint firstItem="y2T-or-XLr" firstAttribute="top" secondItem="Kri-n9-Ipv" secondAttribute="bottom" constant="8" id="EYD-EL-TFh"/>
                                     <constraint firstItem="eYD-Jo-jGS" firstAttribute="top" secondItem="Iqa-i7-18S" secondAttribute="bottom" constant="3.5" id="MUB-i4-ec6"/>
                                     <constraint firstItem="y2T-or-XLr" firstAttribute="leading" secondItem="dJi-6y-jWG" secondAttribute="leading" constant="47" id="NR6-PV-tnn"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qg7-XX-BUI" secondAttribute="trailing" constant="9" id="QBS-gE-Jr1"/>
                                     <constraint firstItem="eYD-Jo-jGS" firstAttribute="leading" secondItem="dJi-6y-jWG" secondAttribute="leading" constant="47" id="Ral-HR-I2y"/>
+                                    <constraint firstItem="Qg7-XX-BUI" firstAttribute="top" secondItem="dJi-6y-jWG" secondAttribute="top" constant="29" id="Tpo-0D-0vu"/>
                                     <constraint firstAttribute="height" constant="128" id="ePx-Xz-ljZ"/>
                                     <constraint firstItem="Iqa-i7-18S" firstAttribute="leading" secondItem="dJi-6y-jWG" secondAttribute="leading" constant="62" id="hnB-5u-NbR"/>
                                     <constraint firstItem="Kri-n9-Ipv" firstAttribute="top" secondItem="dJi-6y-jWG" secondAttribute="top" constant="29" id="vcX-b0-m2w"/>
@@ -578,6 +641,13 @@
                         <outlet property="tabYearlyBtn" destination="hF8-Ci-JyA" id="cxU-Xo-Wto"/>
                         <outlet property="takeHomeAmtLbl" destination="Iqa-i7-18S" id="q5c-Mc-Ylp"/>
                         <outlet property="taxOffsetLbl" destination="biu-Id-eTe" id="WON-0Z-NlD"/>
+                        <outlet property="taxableIncomeAmtLbl" destination="E9g-JW-uRy" id="b3R-1k-kAE"/>
+                        <outlet property="topTabDailyBtn" destination="nQe-kG-gXR" id="uPk-k6-5fm"/>
+                        <outlet property="topTabFortnightlyBtn" destination="KUl-DG-e81" id="bCn-Qi-eEy"/>
+                        <outlet property="topTabLine" destination="z7N-zh-t8q" id="l2K-GU-JnA"/>
+                        <outlet property="topTabMonthlyBtn" destination="OQV-id-Yrl" id="J3K-vY-2LQ"/>
+                        <outlet property="topTabWeeklyBtn" destination="iml-Vr-2zY" id="hj9-kT-TXh"/>
+                        <outlet property="topTabYearlyBtn" destination="VoM-ZY-1Zs" id="mCR-4O-dE3"/>
                         <outlet property="totalTaxesAmtLbl" destination="djT-U1-aEI" id="I9D-2K-q19"/>
                         <outlet property="triangleImg" destination="hPy-mT-AmL" id="G1e-yM-xnV"/>
                     </connections>
@@ -585,35 +655,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-71.200000000000003" y="52.623688155922046"/>
-        </scene>
-        <!--SettingsVC-->
-        <scene sceneID="hcA-G6-Mi5">
-            <objects>
-                <viewController id="8GS-tJ-Elq" customClass="SettingsVC" customModule="PayCal" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YTs-eu-joS"/>
-                        <viewControllerLayoutGuide type="bottom" id="IvB-1R-2yL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CzJ-tP-5RI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hbb-qf-fZf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Settings" id="Jbh-2z-9VL">
-                                        <barButtonItem key="backBarButtonItem" title="Back" id="Reu-OT-H7D"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ApY-Wf-FXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="655" y="53"/>
         </scene>
     </scenes>
     <resources>

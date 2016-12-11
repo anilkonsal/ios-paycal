@@ -13,6 +13,14 @@ class MainVC: UIViewController {
     @IBOutlet weak var salaryTypeYearlyBtn: UIView!
     @IBOutlet weak var salaryTypeDailyBtn: UIView!
     @IBOutlet weak var salaryAmountTxt: UITextField!
+    
+    
+    @IBOutlet weak var topTabYearlyBtn: UIButton!
+    @IBOutlet weak var topTabMonthlyBtn: UIButton!
+    @IBOutlet weak var topTabFortnightlyBtn: UIButton!
+    @IBOutlet weak var topTabWeeklyBtn: UIButton!
+    @IBOutlet weak var topTabDailyBtn: UIButton!
+    
     @IBOutlet weak var tabYearlyBtn: UIButton!
     @IBOutlet weak var tabMonthlyBtn: UIButton!
     @IBOutlet weak var tabDailyBtn: UIButton!
@@ -26,6 +34,9 @@ class MainVC: UIViewController {
     @IBOutlet weak var otherTaxesAmtLbl: UILabel!
     @IBOutlet weak var taxOffsetLbl: UILabel!
     @IBOutlet weak var triangleImg: UIImageView!
+    @IBOutlet weak var topTabLine: UIView!
+    @IBOutlet weak var taxableIncomeAmtLbl: UILabel!
+    
     
     private let FREQUENCY_YEARLY = "yearly"
     private let FREQUENCY_MONTHLY = "monthly"
@@ -34,48 +45,78 @@ class MainVC: UIViewController {
     private let FREQUENCY_DAILY = "daily"
     
     var frequency: String = ""
+    var salaryType: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         frequency = FREQUENCY_YEARLY
+        salaryType = FREQUENCY_YEARLY
         
     }
-//    @IBAction func salaryAmountEntered(_ sender: Any) {
-//        fetchValuesAndDisplayResults()
-//    }
     @IBAction func salaryAmountChanged(_ sender: Any) {
         fetchValuesAndDisplayResults()
     }
     @IBAction func tabYearlyBtnPressed(_ sender: Any) {
         frequency = FREQUENCY_YEARLY
-        activateTab(tab: tabYearlyBtn)
+        activateTab(tab: tabYearlyBtn, type: 2)
         fetchValuesAndDisplayResults()
     }
     @IBAction func tabMonthlyBtnPressed(_ sender: Any) {
         frequency = FREQUENCY_MONTHLY
-        activateTab(tab: tabMonthlyBtn)
+        activateTab(tab: tabMonthlyBtn, type: 2)
         fetchValuesAndDisplayResults()
     }
     
     @IBAction func tabDailyBtnPressed(_ sender: Any) {
         frequency = FREQUENCY_DAILY
-        activateTab(tab: tabDailyBtn)
+        activateTab(tab: tabDailyBtn, type: 2)
         fetchValuesAndDisplayResults()
     }
     @IBAction func tabWeeklyBtnPressed(_ sender: Any) {
         frequency = FREQUENCY_WEEKLY
-        activateTab(tab: tabWeeklyBtn)
+        activateTab(tab: tabWeeklyBtn, type: 2)
         fetchValuesAndDisplayResults()
     }
     
     @IBAction func tabFortnightlyBtnPressed(_ sender: Any) {
         
         frequency = FREQUENCY_FORTNIGHTLY
-        activateTab(tab: tabFortnightlyBtn)
+        activateTab(tab: tabFortnightlyBtn, type:  2)
         fetchValuesAndDisplayResults()
 
     }
+    
+    @IBAction func topTabYearlyBtnPressed(_ sender: Any) {
+        salaryType = FREQUENCY_YEARLY
+        activateTab(tab: topTabYearlyBtn, type:  1)
+        fetchValuesAndDisplayResults()
+    }
+    @IBAction func topTabDailyBtnPressed(_ sender: Any) {
+        salaryType = FREQUENCY_DAILY
+        activateTab(tab: topTabDailyBtn, type:  1)
+        fetchValuesAndDisplayResults()    
+    }
+    
+    @IBAction func topTabMonthlyBtnPressed(_ sender: Any) {
+        salaryType = FREQUENCY_MONTHLY
+        activateTab(tab: topTabMonthlyBtn, type:  1)
+        fetchValuesAndDisplayResults()
+    }
+    
+    @IBAction func topTabFortnighlyBtnPressed(_ sender: Any) {
+        salaryType = FREQUENCY_FORTNIGHTLY
+        activateTab(tab: topTabFortnightlyBtn, type:  1)
+        fetchValuesAndDisplayResults()
+    }
+    
+    @IBAction func topTabWeeklyBtn(_ sender: Any) {
+        salaryType = FREQUENCY_WEEKLY
+        activateTab(tab: topTabWeeklyBtn, type:  1)
+        fetchValuesAndDisplayResults()
+    }
+    
+    
     func fetchValuesAndDisplayResults()
     {
         if (salaryAmountTxt.text == "") {
@@ -88,8 +129,7 @@ class MainVC: UIViewController {
         
         let (takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
             otherTaxesAmt, taxOffsetAmt) =
-                calculate(salary: salary, superPer: superPer, medicarePer: medicarePer, frequency: self.frequency)
-        
+                calculate(salary: salary, superPer: superPer, medicarePer: medicarePer, frequency: frequency, salaryType: salaryType)
         
         incomeTaxAmtLbl.text = String(income_tax)
         superAmountLbl.text = String(superAmount)
@@ -100,47 +140,48 @@ class MainVC: UIViewController {
         taxOffsetLbl.text = String(taxOffsetAmt)
 
     }
+    
 
-    func calculate(salary: Double, superPer: Double, medicarePer: Double, frequency: String) ->
+    func calculate(salary: Double, superPer: Double, medicarePer: Double, frequency: String, salaryType: String) ->
             (takeHomeAmt: Double, income_tax: Double, superAmount: Double,
                 medicareAmt: Double,totalTaxesAmt: Double, otherTaxesAmt: Double,
                 taxOffsetAmt: Double)
     {
+        let sal = calculateSalary(salary: salary, salaryType: salaryType)
+        
         var income_tax = 0.0
         
-        if salary <= 18200 {
+        if sal <= 18200 {
             income_tax = 0.0
         }
         
-        if salary > 18200 && salary <= 37000 {
-            income_tax += (salary - 18200) * 19/100
+        if sal > 18200 && sal <= 37000 {
+            income_tax += (sal - 18200) * 19/100
         }
         
-        if salary > 37000 && salary <= 87000 {
+        if sal > 37000 && sal <= 87000 {
             income_tax += (37000-18200) * 19/100
-            income_tax += (salary - 37000) * 32.5/100
+            income_tax += (sal - 37000) * 32.5/100
         }
         
-        if salary > 87000 && salary <= 180000 {
+        if sal > 87000 && sal <= 180000 {
             income_tax += ((87000 - 37000) * 32.5/100)
             income_tax += ((37000-18200) * 19/100)
-            income_tax += (salary - 87000) * 37/100
+            income_tax += (sal - 87000) * 37/100
         }
         
-        if salary > 180000 {
+        if sal > 180000 {
             income_tax +=  ((180000 - 87000) * 37/100)
             income_tax += ((87000 - 37000) * 32.5/100)
             income_tax += ((37000-18200) * 19/100)
-            income_tax += (salary - 180000) * 45/100
+            income_tax += (sal - 180000) * 45/100
         }
         
         
         
-        
-        
-        var superAmount = salary * superPer/100.0
-        var medicareAmt = salary * medicarePer/100.0
-        var takeHomeAmt = salary - (income_tax + medicareAmt)
+        var superAmount = sal * superPer/100.0
+        var medicareAmt = sal * medicarePer/100.0
+        var takeHomeAmt = sal - (income_tax + medicareAmt)
         var totalTaxesAmt = income_tax + medicareAmt
         var otherTaxesAmt = 0.0
         var taxOffsetAmt = 0.0
@@ -193,18 +234,61 @@ class MainVC: UIViewController {
                 otherTaxesAmt, taxOffsetAmt)
     }
     
-    func activateTab(tab: UIButton)
+    
+    
+    func calculateSalary(salary: Double, salaryType: String) -> Double
     {
-        tabYearlyBtn.alpha = 0.3
-        tabMonthlyBtn.alpha = 0.3
-        tabFortnightlyBtn.alpha = 0.3
-        tabWeeklyBtn.alpha = 0.3
-        tabDailyBtn.alpha = 0.3
+        if salaryType == FREQUENCY_DAILY {
+            return salary * 250
+        }
         
-        tab.alpha = 1.0
+        if salaryType == FREQUENCY_MONTHLY {
+            return salary * 12
+        }
         
-        triangleImg.center = tab.center
-        triangleImg.frame.origin.y = -5
+        if salaryType == FREQUENCY_FORTNIGHTLY {
+            return salary * 26
+        }
+        
+        if salaryType == FREQUENCY_WEEKLY {
+            return salary * 52
+        }
+        return salary
+    }
+    
+    func activateTab(tab: UIButton, type: Int)
+    {
+        let alpha = CGFloat(0.3)
+        if type == 2 {
+            
+            tabYearlyBtn.alpha = alpha
+            tabMonthlyBtn.alpha = alpha
+            tabFortnightlyBtn.alpha = alpha
+            tabWeeklyBtn.alpha = alpha
+            tabDailyBtn.alpha = alpha
+            tab.alpha = 1.0
+            
+            triangleImg.center = tab.center
+            triangleImg.frame.origin.y = -5
+            
+            
+        } else if type == 1 {
+            
+
+            topTabMonthlyBtn.alpha = alpha
+            topTabYearlyBtn.alpha = alpha
+            topTabFortnightlyBtn.alpha = alpha
+            topTabWeeklyBtn.alpha = alpha
+            topTabDailyBtn.alpha = alpha
+            
+            tab.alpha = 1.0
+            
+            topTabLine.center = tab.center
+            topTabLine.frame.origin.y = CGFloat(48)
+            
+        }
+        
+        
         
     }
 
