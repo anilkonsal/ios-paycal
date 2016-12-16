@@ -54,6 +54,21 @@ class MainVC: UIViewController {
         salaryType = FREQUENCY_YEARLY
         
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        // Hide the navigation bar on the this view controller
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    
     @IBAction func salaryAmountChanged(_ sender: Any) {
         fetchValuesAndDisplayResults()
     }
@@ -127,23 +142,26 @@ class MainVC: UIViewController {
         let superPer: Double = 9.5
         let medicarePer: Double = 2
         
-        let (takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
+        let (taxableAmt,takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
             otherTaxesAmt, taxOffsetAmt) =
                 calculate(salary: salary, superPer: superPer, medicarePer: medicarePer, frequency: frequency, salaryType: salaryType)
         
-        incomeTaxAmtLbl.text = String(income_tax)
-        superAmountLbl.text = String(superAmount)
-        medicareAmtLbl.text = String(medicareAmt)
-        takeHomeAmtLbl.text = String(takeHomeAmt)
-        totalTaxesAmtLbl.text = String(totalTaxesAmt)
-        otherTaxesAmtLbl.text = String(otherTaxesAmt)
-        taxOffsetLbl.text = String(taxOffsetAmt)
+        
+        
+        incomeTaxAmtLbl.text = String(format: "%.2f", income_tax)
+        superAmountLbl.text = String(format: "%.2f", superAmount)
+        medicareAmtLbl.text = String(format: "%.2f", medicareAmt)
+        takeHomeAmtLbl.text = String(format: "%.2f", takeHomeAmt)
+        totalTaxesAmtLbl.text = String(format: "%.2f", totalTaxesAmt)
+        otherTaxesAmtLbl.text = String(format: "%.2f", otherTaxesAmt)
+        taxOffsetLbl.text = String(format: "%.2f", taxOffsetAmt)
+        taxableIncomeAmtLbl.text = String(format: "%.2f", taxableAmt)
 
     }
     
 
     func calculate(salary: Double, superPer: Double, medicarePer: Double, frequency: String, salaryType: String) ->
-            (takeHomeAmt: Double, income_tax: Double, superAmount: Double,
+        (taxableAmt: Double ,takeHomeAmt: Double, income_tax: Double, superAmount: Double,
                 medicareAmt: Double,totalTaxesAmt: Double, otherTaxesAmt: Double,
                 taxOffsetAmt: Double)
     {
@@ -176,7 +194,6 @@ class MainVC: UIViewController {
             income_tax += ((37000-18200) * 19/100)
             income_tax += (sal - 180000) * 45/100
         }
-        
         
         
         var superAmount = sal * superPer/100.0
@@ -221,16 +238,10 @@ class MainVC: UIViewController {
             taxOffsetAmt /= 365
         }
         
-        income_tax = round(income_tax)
-        superAmount = round(superAmount)
-        medicareAmt = round(medicareAmt)
-        takeHomeAmt = round(takeHomeAmt)
-        totalTaxesAmt = round(totalTaxesAmt)
-        otherTaxesAmt = round(otherTaxesAmt)
-        taxOffsetAmt = round(taxOffsetAmt)
         
         
-        return (takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
+        
+        return (sal, takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
                 otherTaxesAmt, taxOffsetAmt)
     }
     
