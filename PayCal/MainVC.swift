@@ -62,11 +62,15 @@ class MainVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
+        fetchValuesAndDisplayResults()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
     }
+    
     
     
     @IBAction func salaryAmountChanged(_ sender: Any) {
@@ -139,12 +143,27 @@ class MainVC: UIViewController {
         }
         
         let salary: Double = Double(salaryAmountTxt.text!)!
-        let superPer: Double = 9.5
+        let superPer: Double = superPercentage
         let medicarePer: Double = 2
+        let studentLoanTaxPer: Double = 4
+        let helpTslAmt: Double = 9600
         
-        let (taxableAmt,takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
+        
+        let (taxableAmt, takeHomeAmt, income_tax, superAmount, medicareAmt, totalTaxesAmt,
             otherTaxesAmt, taxOffsetAmt) =
-                calculate(salary: salary, superPer: superPer, medicarePer: medicarePer, frequency: frequency, salaryType: salaryType)
+                
+                calculate(salary: salary,
+                          superPer: superPer,
+                          medicarePer: medicarePer,
+                          frequency: frequency,
+                          salaryType: salaryType,
+                          studentLoanTaxPer: studentLoanTaxPer,
+                          isStudentLoan: studentLoan,
+                          isNonResident: nonResident,
+                          helpTslAmt: helpTslAmt,
+                          isHelpTsl: helpTsl,
+                          noTaxFreeThreshold: noTaxFreeThreshold,
+                          includesSuper: includesSuper)
         
         
         
@@ -160,47 +179,80 @@ class MainVC: UIViewController {
     }
     
 
-    func calculate(salary: Double, superPer: Double, medicarePer: Double, frequency: String, salaryType: String) ->
+    func calculate(salary: Double, superPer: Double, medicarePer: Double, frequency: String, salaryType: String, studentLoanTaxPer:Double, isStudentLoan: Bool, isNonResident: Bool, helpTslAmt: Double, isHelpTsl: Bool, noTaxFreeThreshold: Bool, includesSuper: Bool) ->
         (taxableAmt: Double ,takeHomeAmt: Double, income_tax: Double, superAmount: Double,
                 medicareAmt: Double,totalTaxesAmt: Double, otherTaxesAmt: Double,
                 taxOffsetAmt: Double)
     {
-        let sal = calculateSalary(salary: salary, salaryType: salaryType)
+        let sal = calculateSalary(salary: salary, salaryType: salaryType, includesSuper: includesSuper)
         
         var income_tax = 0.0
         
-        if sal <= 18200 {
-            income_tax = 0.0
+        if !nonResident {
+
+            if !noTaxFreeThreshold {
+            
+                if sal <= 18200 {
+                    income_tax = 0.0
+                }
+            } else {
+                income_tax = Double(18200 * 19/100)
+            }
+        
+            if sal > 18200 && sal <= 37000 {
+                income_tax += (sal - 18200) * 19/100
+            }
+        
+            if sal > 37000 && sal <= 87000 {
+                income_tax += (37000-18200) * 19/100
+                income_tax += (sal - 37000) * 32.5/100
+            }
+        
+            if sal > 87000 && sal <= 180000 {
+                income_tax += ((87000 - 37000) * 32.5/100)
+                income_tax += ((37000-18200) * 19/100)
+                income_tax += (sal - 87000) * 37/100
+            }
+        
+            if sal > 180000 {
+                income_tax +=  ((180000 - 87000) * 37/100)
+                income_tax += ((87000 - 37000) * 32.5/100)
+                income_tax += ((37000-18200) * 19/100)
+                income_tax += (sal - 180000) * 45/100
+            }
+        } else {
+            
+            
+            if sal > 0 && sal <= 87000 {
+                income_tax += sal * 32.5/100
+            }
+            
+            if sal > 87000 && sal <= 180000 {
+                income_tax += (87000 * 32.5/100)
+                income_tax += (sal - 87000) * 37/100
+            }
+            
+            if sal > 180000 {
+                income_tax += (87000 * 32.5/100)
+                income_tax += ((180000 - 87000) * 37/100)
+                income_tax += (sal - 180000) * 45/100
+            }
+            
         }
         
-        if sal > 18200 && sal <= 37000 {
-            income_tax += (sal - 18200) * 19/100
-        }
-        
-        if sal > 37000 && sal <= 87000 {
-            income_tax += (37000-18200) * 19/100
-            income_tax += (sal - 37000) * 32.5/100
-        }
-        
-        if sal > 87000 && sal <= 180000 {
-            income_tax += ((87000 - 37000) * 32.5/100)
-            income_tax += ((37000-18200) * 19/100)
-            income_tax += (sal - 87000) * 37/100
-        }
-        
-        if sal > 180000 {
-            income_tax +=  ((180000 - 87000) * 37/100)
-            income_tax += ((87000 - 37000) * 32.5/100)
-            income_tax += ((37000-18200) * 19/100)
-            income_tax += (sal - 180000) * 45/100
-        }
         
         
         var superAmount = sal * superPer/100.0
-        var medicareAmt = sal * medicarePer/100.0
-        var takeHomeAmt = sal - (income_tax + medicareAmt)
-        var totalTaxesAmt = income_tax + medicareAmt
-        var otherTaxesAmt = 0.0
+        var medicareAmt = isNonResident ? 0 : sal * medicarePer/100.0
+        
+        let studentLoanTaxAmt = isStudentLoan ? sal * studentLoanTaxPer/100.0 : 0
+        
+        let helpTslTaxAmt = isHelpTsl ? helpTslAmt : 0
+        
+        var otherTaxesAmt = studentLoanTaxAmt + helpTslTaxAmt
+        
+        var totalTaxesAmt = income_tax + medicareAmt + otherTaxesAmt
+        var takeHomeAmt = sal - (totalTaxesAmt)
         var taxOffsetAmt = 0.0
         
         if frequency == FREQUENCY_MONTHLY {
@@ -247,24 +299,30 @@ class MainVC: UIViewController {
     
     
     
-    func calculateSalary(salary: Double, salaryType: String) -> Double
+    func calculateSalary(salary: Double, salaryType: String, includesSuper: Bool) -> Double
     {
+        var sal = includesSuper ? salary * 100 / 109.5 : salary
+        
+        
+        
         if salaryType == FREQUENCY_DAILY {
-            return salary * 250
+            sal = sal * 250
         }
         
         if salaryType == FREQUENCY_MONTHLY {
-            return salary * 12
+            sal = sal * 12
         }
         
         if salaryType == FREQUENCY_FORTNIGHTLY {
-            return salary * 26
+            sal = sal * 26
         }
         
         if salaryType == FREQUENCY_WEEKLY {
-            return salary * 52
+            sal = sal * 52
         }
-        return salary
+        
+        
+        return sal
     }
     
     func activateTab(tab: UIButton, type: Int)
